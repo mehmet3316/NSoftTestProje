@@ -25,6 +25,7 @@ namespace Application.Handler
 
         public async Task<ApiResponse<NT_Customers>> Handle(CustomersCommand request, CancellationToken cancellationToken)
         {
+            //Zorunlu alan kontrolleri
             var validationResults = new List<ValidationResult>();
             var validationContext = new ValidationContext(request);
             bool isValid = Validator.TryValidateObject(request, validationContext, validationResults, true);
@@ -35,6 +36,7 @@ namespace Application.Handler
                 return ApiResponse<NT_Customers>.Fail(400, string.Join(", ", errorMessages));
             }
 
+            //Dapper ile StoredProcedure veritabanı kayıt işlemleri
             string productId = await _repository.QuerySingleAsync<string>("sp_InsertOrUpdateXCustomers", request, CommandType.StoredProcedure);
 
             if (String.IsNullOrEmpty(productId))

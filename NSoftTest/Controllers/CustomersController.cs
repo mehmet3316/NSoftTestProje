@@ -18,6 +18,7 @@ namespace NSoftTest.Controllers
             _mediator = mediator;
         }
 
+        //Kayıt ve güncelleme
         [HttpPost("CreateOrUpdate")]
         public async Task<IActionResult> CreateOrUpdateProduct([FromBody] CustomersCommand command)
         {
@@ -25,6 +26,7 @@ namespace NSoftTest.Controllers
             return Ok(result);
         }
        
+        //Silme
         [HttpDelete("Delete/{KAYITKODU}")]
         public async Task<IActionResult> DeleteProduct(string KAYITKODU)
         {
@@ -34,6 +36,7 @@ namespace NSoftTest.Controllers
         }
 
 
+        //Kayıt Bul Getir
         [HttpGet("GetById/{KAYITKODU}")]  
         public async Task<IActionResult> GetProduct(string KAYITKODU)
         {
